@@ -2,7 +2,7 @@ package ci.gouv.dgmg.stam.dao.user;
 
 import java.util.List;
 
-import ci.gouv.dgmg.stam.model.user.Agent;
+import ci.gouv.dgmg.stam.models.user.Agent;
 
 public class UserDAOImpl extends UserDAO<Agent>{
 	
@@ -16,8 +16,8 @@ public class UserDAOImpl extends UserDAO<Agent>{
 	@Override
 	public void del(Agent agent) {
 		em.getTransaction().begin();
-		em.find(agent.getClass(), agent.getMatricule());
-		em.remove(agent);
+		Agent ag = em.find(agent.getClass(), agent.getMatricule());
+		em.remove(ag);
 		em.getTransaction().commit();
 	}
 	

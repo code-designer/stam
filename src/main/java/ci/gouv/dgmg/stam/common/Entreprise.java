@@ -1,24 +1,33 @@
 package ci.gouv.dgmg.stam.common;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-@Entity
+import lombok.ToString;
+
+@MappedSuperclass
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-public class Entreprise {
+@ToString
+@EqualsAndHashCode
+public class Entreprise implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "raison_social, length = 75", nullable = false)
+	@Column(name = "raison_social", length = 75, nullable = false)
 	@NonNull
 	private String raisonSocial;
 	
