@@ -31,7 +31,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "demande")
+@Table(name = "demandes")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor

@@ -15,7 +15,7 @@ public enum Sexe {
 		return this.sexe;
 	}
 	
-	public Sexe toSexe(String sexe) {
+	public static Sexe toSexe(String sexe) {
 		for(Sexe s : values()) 
 			if (s.toString().equals(sexe))
 				return s;

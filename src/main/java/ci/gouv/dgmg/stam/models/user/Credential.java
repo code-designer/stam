@@ -27,7 +27,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "credential")
+@Table(name = "credentials")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -35,10 +35,13 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public final class Credential implements Serializable{
+	/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	*/
 	
+	@Id
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "matricule_agent", referencedColumnName = "matricule")
 	@NonNull 
@@ -49,7 +52,7 @@ public final class Credential implements Serializable{
 	private String password;
 	
 	@ElementCollection
-	@CollectionTable(name = "agent_roles")
+	@CollectionTable(name = "agent_roles",joinColumns = @JoinColumn(name="agent"))
 	@Enumerated(EnumType.STRING)
 	@NonNull 
 	private Set<UserRole> roles;

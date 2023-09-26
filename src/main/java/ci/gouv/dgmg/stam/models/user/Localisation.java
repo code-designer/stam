@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "localisation")
+@Table(name = "localisations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

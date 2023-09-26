@@ -27,9 +27,9 @@ public class Entreprise implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "raison_social", length = 75, nullable = false)
+	@Column(name = "raison_sociale", length = 75, nullable = false)
 	@NonNull
-	private String raisonSocial;
+	private String raisonSociale;
 	
 	private String gerant;
 }

@@ -1,21 +1,23 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ taglib tagdir="/WEB-INF/tags/" prefix="m" %>
 <%@ attribute name="title" required="true"%>
 
 <!Doctype html>
 <html lang="fr">
   <head>
-    <title>${title}</title>
+    <title>${title} | STAM</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Application de Suivi des Titres et Autorisation
     Minières (STAM) permet le suivi des differents actes et de generer des données 
     statistiques.">
-    <link media="screen" rel="stylesheet" href="">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link media="screen" rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/mobile.css">
+    <link media="screen and (min-width:768px)" rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css">
+    <script src="${pageContext.servletContext.contextPath}/js/app.js" type="module" defer></script>
   </head>
   <body>
+  	<m:menu></m:menu>
     <jsp:doBody/>
+    <m:foot></m:foot>
   </body>
 </html>

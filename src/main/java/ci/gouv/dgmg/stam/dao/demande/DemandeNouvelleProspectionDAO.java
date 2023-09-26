@@ -2,10 +2,10 @@ package ci.gouv.dgmg.stam.dao.demande;
 
 import java.util.List;
 
+import ci.gouv.dgmg.stam.dao.StringIndexDAO;
 import ci.gouv.dgmg.stam.models.demande.DemandeNouvelleProspection;
-import ci.gouv.dgmg.stam.models.user.Agent;
 
-public class DemandeNouvelleProspectionDAO extends DemandeDAO<DemandeNouvelleProspection> {
+public class DemandeNouvelleProspectionDAO extends StringIndexDAO<DemandeNouvelleProspection> {
 
 	@Override
 	public void create(DemandeNouvelleProspection t) {

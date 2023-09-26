@@ -1,11 +1,9 @@
 package ci.gouv.dgmg.stam.dao;
 
-import ci.gouv.dgmg.stam.dao.acte.ActeDAO;
 import ci.gouv.dgmg.stam.dao.acte.AgrementDAO;
 import ci.gouv.dgmg.stam.dao.acte.PermisExploitationDAO;
 import ci.gouv.dgmg.stam.dao.acte.PermisRechercheDAO;
 import ci.gouv.dgmg.stam.dao.acte.ProspectionDAO;
-import ci.gouv.dgmg.stam.dao.demande.DemandeDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeNouvelleAgrementDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeNouvellePEDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeNouvellePRDAO;
@@ -14,10 +12,11 @@ import ci.gouv.dgmg.stam.dao.demande.DemandeRenouvellementAgrementDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeRenouvellementPEDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeRenouvellementPRDAO;
 import ci.gouv.dgmg.stam.dao.demande.DemandeRenouvellementProspectionDAO;
+import ci.gouv.dgmg.stam.dao.user.UserDAOImpl;
 
 public class DAOFactory {
 	
-	public static DemandeDAO getDemandeDAO(DAOType daoType) {
+	public static DAO getDemandeDAO(DAOType daoType) {
 		switch(daoType) {
 		case DEMANDE_NOUVELLE_AGREMENT:
 			return new DemandeNouvelleAgrementDAO();
@@ -40,7 +39,7 @@ public class DAOFactory {
 		}
 	}
 	
-	public static ActeDAO getActeDAO(DAOType daoType) {
+	public static DAO getActeDAO(DAOType daoType) {
 		switch(daoType) {
 		case DEMANDE_NOUVELLE_AGREMENT:
 			return new AgrementDAO();
@@ -53,6 +52,10 @@ public class DAOFactory {
 		default:
 			return null;
 		}
+	}
+	
+	public static DAO getUserDAO() {
+		return new UserDAOImpl();
 	}
 
 	public enum DAOType {

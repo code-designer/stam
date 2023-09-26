@@ -1,0 +1,267 @@
+@charset "UTF-8";
+
+:root{
+	--main-text-color: black;
+	--main-bg-color: rgb(249, 251, 251);
+	--main-container-bg-color: white;
+	--main-hover-color: skyblue;
+}
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding:0;
+	font-family: "Segoe UI", roboto, "Helvetica Nueue", Arial, "Noto sans", sans-serif;
+	font-size: 1em;
+	background-color: var(--main-container-bg-color);
+	color: var(--main-text-color);
+}
+html,
+body{
+	height: 100%;
+}
+ul{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+header{
+	width: 100%;
+	margin-bottom: 20px;
+	position: sticky;
+	top: 0;
+	border-bottom: 2px solid var(--main-hover-color);
+}
+
+.amoiries{
+	display: none;
+}
+
+.img-frame{
+	display: inline-block;
+	margin-left: 5px;
+}
+.logo{
+	height: 50px;
+}
+.menu{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	overflow: hidden;
+}
+/*.menu-item a*/
+.menu-list a{
+	display: block;
+	padding: 10px;
+}
+.menu-list a:hover{
+	background-color: grey;
+}
+.menu {
+	max-height: 0;
+	transition: max-height .5s ease-out;
+}
+/* Hamburger icon */
+.menu-icon{
+	cursor: pointer;
+	float: right;
+	padding: 20px 10px;
+	
+}
+.menu-btn-icon{
+	display: block;
+	background-color: black;
+	height: 2px;
+	position: relative;
+	width: 24px;
+}
+.menu-btn-icon::before,
+.menu-btn-icon::after{
+	content:'';
+	display: block;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transition: all .2s ease-out;
+}
+.menu-btn-icon::before{
+	margin-top: 10px;
+}
+.menu-btn-icon::after{
+	margin-top: -10px;
+}
+.menu-checker{
+	display: none;
+} 
+/*Toogle menu btn*/
+.menu-checker:checked ~ .menu{
+	max-height: 100%;
+}
+.menu-checker:checked ~ .menu-icon .menu-btn-icon{
+	background: transparent;
+}
+.menu-checker:checked ~ .menu-icon .menu-btn-icon::after{
+	transform: rotate(57deg);
+	transform-origin:0;
+}
+.menu-checker:checked ~ .menu-icon .menu-btn-icon::before{
+	transform: rotate(-57deg);
+	transform-origin:0;
+}
+/*display submenu*/
+.submenu{
+	overflow: hidden;
+	max-height: 0;
+}
+.show-submenu{
+	overflow: visible;
+	max-height: 100%;
+	transition: max-height .5s ease-out;
+}
+.show-submenu a{
+	padding-left: 40px;
+	transition: padding-left .5s ease-out;
+}
+.main-frame{
+	width: 100%;
+	margin: 15px 0;
+}
+.frame-title{
+	width:100%;
+	text-align: center;
+	font-size: 1.7em;
+	padding: 20px 0;
+	margin-bottom: 20px;
+}
+.searchbar input,
+.searchbar button{
+	height: 40px;
+}
+.searchbar{
+	display: flex;
+	justify-content: center;
+	width: 70%;
+	margin: 15px auto;
+	border-radius: 20px;
+	box-shadow: 0 0 3px grey;
+}
+.searchbar input{
+	border: none;
+	flex-grow: 11;
+	border-radius: 20px 0 0 20px;
+	padding-left: 25px;
+	outline: unset;
+	border: none;
+}
+.searchbar button{
+	width: 40px;
+	flex-grow: 1;
+	border-radius: 0 20px 20px 0;
+	border: none;
+	/*padding: 0 10px;*/
+}
+.tools-list li{
+	display: inline-block;
+	margin-left: 5px;
+}
+.btn{
+	display: block;
+	width: 30px;
+	height: 30px;
+	background-color: red;
+	text-align: center;
+}
+.btn-rounded{
+	border-radius: 50%;
+}
+.table-block{
+	width:100%;
+	overflow-x:auto;
+	margin-top: 10px;
+}
+table{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 10px 0;
+	padding: 0;
+}
+tbody tr{
+	border: 1px solid #f5f5f5;
+	margin: 2px 0;
+	cursor: pointer;
+}
+td, 
+th{
+	padding: 5px;
+	border-right: 1px;
+	border-left: 0;
+	word-wrap:break-word;
+	-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    hyphens: auto;
+}
+thead th{
+	background-color: var(--main-hover-color);
+	padding: 15px 0;
+}
+tbody tr:nth-child(even) td{
+	background-color: #f0ffff;
+}
+tbody tr:hover {
+	box-shadow: 0 0 3px grey;
+	z-index: 2;
+	transform: scale(1);
+}
+.pagination{
+	display: block;
+	margin: 30px auto;
+	text-align: center;
+}
+.pagination button{
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	border: none;
+}
+.pagination label{
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 15px 20px;
+}
+.pagination label:hover{
+	border: 1px solid lightgrey;
+}
+.pagination button:hover{
+	background-color: var(--main-hover-color);
+	color: white;
+}
+footer,
+footer h2,
+footer p,
+footer li,
+footer div{
+	background-color: black;
+	color: white;
+}
+footer{
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	bottom:0;
+}
+.contacts, 
+.localisation {
+	display: inline-block;
+	vertical-align: top;
+	padding: 20px;
+	width : 100%;
+}
+iframe{
+	width: 100%;
+}
+.copyrights p{
+	text-align: center;
+	padding: 20px 0 5px;
+}

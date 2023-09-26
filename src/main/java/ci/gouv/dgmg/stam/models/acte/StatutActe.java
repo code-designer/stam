@@ -16,7 +16,7 @@ public enum StatutActe {
 		return this.etat;
 	}
 	
-	public StatutActe toStatut(String etat) {
+	public static StatutActe toStatut(String etat) {
 		for (StatutActe s: values())
 			if (s.toString().equals(etat))
 				return s;

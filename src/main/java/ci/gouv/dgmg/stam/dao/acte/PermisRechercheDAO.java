@@ -2,10 +2,10 @@ package ci.gouv.dgmg.stam.dao.acte;
 
 import java.util.List;
 
+import ci.gouv.dgmg.stam.dao.StringIndexDAO;
 import ci.gouv.dgmg.stam.models.acte.PermisRecherche;
-import ci.gouv.dgmg.stam.models.acte.Prospection;
 
-public class PermisRechercheDAO extends ActeDAO<PermisRecherche> {
+public class PermisRechercheDAO extends StringIndexDAO<PermisRecherche> {
 
 	@Override
 	public void create(PermisRecherche t) {

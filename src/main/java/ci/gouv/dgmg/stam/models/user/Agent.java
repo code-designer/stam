@@ -17,7 +17,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "agent")
+@Table(name = "agents")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

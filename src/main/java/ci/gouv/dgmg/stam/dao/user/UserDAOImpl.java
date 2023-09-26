@@ -3,6 +3,7 @@ package ci.gouv.dgmg.stam.dao.user;
 import java.util.List;
 
 import ci.gouv.dgmg.stam.models.user.Agent;
+import ci.gouv.dgmg.stam.models.user.UserRole;
 
 public class UserDAOImpl extends UserDAO<Agent>{
 	
@@ -29,7 +30,7 @@ public class UserDAOImpl extends UserDAO<Agent>{
 	@Override
 	public void update(Agent agent) {
 		em.getTransaction().begin();
-		Agent ag = em.find(agent.getClass(), agent.getMatricule());
+		em.merge(agent);
 		em.getTransaction().commit();
 	}
 	
@@ -44,6 +45,22 @@ public class UserDAOImpl extends UserDAO<Agent>{
 		em.getTransaction().begin();
 		Agent ag = em.find(agent.getClass(), agent.getMatricule());
 		ag.getCredentials().setPassword(pwd);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public void setRoles(Agent agent, UserRole role) {
+		em.getTransaction().begin();
+		Agent ag = em.find(agent.getClass(), agent.getMatricule());
+		ag.getCredentials().addRole(role);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public void removeRoles(Agent agent, UserRole role) {
+		em.getTransaction().begin();
+		Agent ag = em.find(agent.getClass(), agent.getMatricule());
+		ag.getCredentials().removeRole(role);
 		em.getTransaction().commit();
 	}
 }
