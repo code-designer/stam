@@ -32,4 +32,8 @@ public class DemandeNouvelleProspection extends DemandeNouvelleAutorisation {
 	@Column(name = "prog_de_prospection")
 	@Convert(converter = PathConverter.class)
 	private Path programmeDePropection;
+	
+	@Column(name = "rapport_visite")
+	@Convert(converter = PathConverter.class)
+	protected Path rapportVisite;
 }

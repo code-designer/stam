@@ -7,20 +7,20 @@
 			<div class ="bloc-items">
 				<form class="searchbar">
 					<input type="search" placeholder="Recherche">
-					<button><img alt="" src="./images/icons/search.png"></button>
+					<button><img alt="" src="${pageContext.servletContext.contextPath }/images/icons/search.png"></button>
 				</form>
 				<nav class="nav-tools">
 					<ul class="tools-list">
-						<li><a href="#" class="btn btn-rounded">A</a></li>
-						<li><a href="#" class="btn btn-rounded">S</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/actes/agrements/add" class="btn btn-add">+</a></li>
+						<li><a href="#" class="btn btn-del" id="delete-rows">-</a></li>
 					</ul>
 				</nav>
 				
-				<div class="table-block" overflow="auto">
+				<div class="table-block">
 					<table>
 						<thead>
 							<tr>
-								<th><input type="checkbox" name="all"></th>
+								<th><input type="checkbox" name="all" id="check-all"></th>
 								<th >Numéro d'octroi</th>
 								<th class = "agr-col-2">Entreprise</th>
 								<th class = "agr-col-3">Domaine</th>

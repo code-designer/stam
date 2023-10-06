@@ -8,8 +8,52 @@
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
-      <include-prelude>/WEB-INF/templates/heads.jsp</include-prelude>
+      <include-prelude>/WEB-INF/includes/heads.jsp</include-prelude>
     </jsp-property-group>
   </jsp-config>
-  
+  <session-config>
+    <session-timeout>600</session-timeout>
+  </session-config>
+  <!-- <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/errors/404.jsp</location>
+  </error-page> -->
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/errors/403.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/errors/500.jsp</location>
+  </error-page>
+  <servlet>
+    <description></description>
+    <display-name>ActeServlet</display-name>
+    <servlet-name>ActeServlet</servlet-name>
+    <servlet-class>ci.gouv.dgmg.stam.servlet.actes.ActeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ActeServlet</servlet-name>
+    <url-pattern>/ActeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MainServlet</display-name>
+    <servlet-name>MainServlet</servlet-name>
+    <servlet-class>ci.gouv.dgmg.stam.servlet.MainServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MainServlet</servlet-name>
+    <url-pattern>/MainServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DemandeServlet</display-name>
+    <servlet-name>DemandeServlet</servlet-name>
+    <servlet-class>ci.gouv.dgmg.stam.servlet.demandes.DemandeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DemandeServlet</servlet-name>
+    <url-pattern>/DemandeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

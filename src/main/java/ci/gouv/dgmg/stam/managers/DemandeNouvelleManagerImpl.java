@@ -1,6 +1,10 @@
 package ci.gouv.dgmg.stam.managers;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ci.gouv.dgmg.stam.dao.DAOFactory;
 import ci.gouv.dgmg.stam.dao.DAOFactory.DAOType;
@@ -12,6 +16,7 @@ import ci.gouv.dgmg.stam.models.demande.DemandeNouvelleAgrement;
 import ci.gouv.dgmg.stam.models.demande.DemandeNouvellePE;
 import ci.gouv.dgmg.stam.models.demande.DemandeNouvellePR;
 import ci.gouv.dgmg.stam.models.demande.DemandeNouvelleProspection;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -25,6 +30,13 @@ public class DemandeNouvelleManagerImpl extends Manager implements DemandeNouvel
 			(DemandeNouvellePEDAO) DAOFactory.getDemandeDAO(DAOType.DEMANDE_NOUVELLE_PE);
 	private final DemandeNouvelleProspectionDAO demandeProspection = 
 	(DemandeNouvelleProspectionDAO) DAOFactory.getDemandeDAO(DAOType.DEMANDE_NOUVELLE_PROSPECTION);
+	
+	private static final Logger logger = LoggerFactory.getLogger(DemandeNouvelleManagerImpl.class);  
+	
+	public DemandeNouvelleManagerImpl(HttpServletRequest request, HttpServletResponse response) {
+		this.request = request;
+		this.response = response;
+	}
 	
 	@Override
 	public void addDemandeNouvelleAgrement(DemandeNouvelleAgrement agrmt) {
@@ -58,7 +70,7 @@ public class DemandeNouvelleManagerImpl extends Manager implements DemandeNouvel
 	}
 
 	@Override
-	public DemandeNouvelleAgrement getDemandeNouvelleAgrement(HttpServletRequest request, HttpServletResponse response) {
+	public DemandeNouvelleAgrement getDemandeNouvelleAgrement() throws IOException, ServletException {
 		return buildDemandeNouvelleAgrement();
 	}
 
@@ -94,7 +106,7 @@ public class DemandeNouvelleManagerImpl extends Manager implements DemandeNouvel
 	}
 
 	@Override
-	public DemandeNouvellePE getDemandeNouvellePE(HttpServletRequest request, HttpServletResponse response) {
+	public DemandeNouvellePE getDemandeNouvellePE() throws IOException, ServletException {
 		return buildDemandeNouvellePE();
 	}
 
@@ -130,7 +142,7 @@ public class DemandeNouvelleManagerImpl extends Manager implements DemandeNouvel
 	}
 
 	@Override
-	public DemandeNouvellePR getDemandeNouvellePR(HttpServletRequest request, HttpServletResponse response) {
+	public DemandeNouvellePR getDemandeNouvellePR() throws IOException, ServletException {
 		return buildDemandeNouvellePR();
 	}
 
@@ -166,8 +178,7 @@ public class DemandeNouvelleManagerImpl extends Manager implements DemandeNouvel
 	}
 
 	@Override
-	public DemandeNouvelleProspection getDemandeNouvelleProspection(HttpServletRequest request,
-			HttpServletResponse response) {
+	public DemandeNouvelleProspection getDemandeNouvelleProspection() throws IOException, ServletException {
 		return buildDemandeNouvelleProspection();
 	}
 

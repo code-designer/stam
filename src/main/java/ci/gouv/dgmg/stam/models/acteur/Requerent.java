@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import ci.gouv.dgmg.stam.common.PathConverter;
 import ci.gouv.dgmg.stam.common.Personne;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -29,4 +30,13 @@ public class Requerent extends Personne {
 	
 	@Convert(converter = PathConverter.class)
 	private Path certificatResidence;
+	
+	@Column(name= "nature_de_piece")
+	private String natureDePiece;
+	
+	@Column(name="numero_piece")
+	private String numeroDePiece;
+	
+	@Convert(converter = PathConverter.class)
+	private Path pieceIdentite;
 }

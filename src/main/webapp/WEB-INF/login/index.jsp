@@ -1,54 +1,29 @@
-<%@ taglib tagdir = "/WEB-INF/tags" prefix="l" %>
+<%@ page session="false" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="l" %>
 
-<l:layout title="login">
-  <div class="div-form">
-	  <form action="j_security_check" method="POST">
-	  <c:if test="${! empty failed}">
-	    <div>
-	  	  <c:out value="Compte utilisateur ou mot de passe invalides"></c:out>
-	  	</div>
-	  </c:if>
-	    <div>
-	      <label>Login</label>
-	      <input type="text" name="j_username" id="j_username">
-	    </div>
-	    <div>
-	      <label>Password</label>
-	      <input type="password" name="j_password" id="j_password">
-	    </div>
-	    <button>Connexion</button>
-	  </form>
-	</div>
-</l:layout>
-
-<!-- 
-<!Doctype html>
-<html lang="fr">
-  <head>
-    <title>login</title>
-    <meta charset="UTF-8">
-  </head>
-  <body>
-    <div class="div-form">
-	  <form action="j_security_check" method="POST">
-	  	<%
+<c:set var="log">
+	<%
 	  		String failed = request.getParameter("failed");
-	  		if(failed != null && !failed.isEmpty())
-	  			out.println("<div>Compte utilisateur ou mot de passe incorrect</div>");
-	  	%>
+	  		if(failed != null && !failed.isEmpty()) 
+	  			out.println("<div>Compte utilisateur ou mot de passe incorrect</div>"); 
+  	%>
+  	  <div class="div-form">  	
+	  <form action="j_security_check" method="POST">
 	    <div>
-	      <label>Login</label>
+	      <label for="j_username">Login</label>
 	      <input type="text" name="j_username" id="j_username">
 	    </div>
 	    <div>
-	      <label>Password</label>
+	      <label for="j_password">Password</label>
 	      <input type="password" name="j_password" id="j_password">
 	    </div>
-	    <button>Connexion</button>
+	    <input type="submit" value="Connexion">
 	  </form>
 	</div>
-  </body>
-</html>
--->
+</c:set>
 
-
+<l:layoutAccess title="login">
+	<jsp:body>
+	${log}
+	</jsp:body>
+</l:layoutAccess>

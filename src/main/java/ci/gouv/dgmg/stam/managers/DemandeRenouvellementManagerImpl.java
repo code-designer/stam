@@ -1,5 +1,6 @@
 package ci.gouv.dgmg.stam.managers;
 
+import java.io.IOException;
 import java.util.List;
 
 import ci.gouv.dgmg.stam.dao.demande.DemandeRenouvellementAgrementDAO;
@@ -10,6 +11,7 @@ import ci.gouv.dgmg.stam.models.demande.DemandeRenouvellementAgrement;
 import ci.gouv.dgmg.stam.models.demande.DemandeRenouvellementPE;
 import ci.gouv.dgmg.stam.models.demande.DemandeRenouvellementPR;
 import ci.gouv.dgmg.stam.models.demande.DemandeRenouvellementProspection;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -23,6 +25,11 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 			(DemandeRenouvellementPRDAO) new DemandeRenouvellementPRDAO();
 	private final DemandeRenouvellementProspectionDAO prospectionDAO = 
 			(DemandeRenouvellementProspectionDAO) new DemandeRenouvellementProspectionDAO();
+	
+	public DemandeRenouvellementManagerImpl(HttpServletRequest request, HttpServletResponse response) {
+		this.request = request;
+		this.response = response;
+	}
 	
 	@Override
 	public void addDemandeRenouvellementAgrement(DemandeRenouvellementAgrement agrmt) {
@@ -56,7 +63,7 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 	}
 
 	@Override
-	public DemandeRenouvellementAgrement getAgrement(HttpServletRequest request, HttpServletResponse response) {
+	public DemandeRenouvellementAgrement getAgrement() throws IOException, ServletException {
 		return buildDemandeRenouvellementAgrement();
 	}
 
@@ -92,8 +99,7 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 	}
 
 	@Override
-	public DemandeRenouvellementPE getDemandeRenouvellementPE(HttpServletRequest request,
-			HttpServletResponse response) {
+	public DemandeRenouvellementPE getDemandeRenouvellementPE() throws IOException, ServletException {
 		return buildDemandeRenouvellementPE();
 	}
 
@@ -129,8 +135,7 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 	}
 
 	@Override
-	public DemandeRenouvellementPR getDemandeRenouvellementPR(HttpServletRequest request,
-			HttpServletResponse response) {
+	public DemandeRenouvellementPR getDemandeRenouvellementPR() throws IOException, ServletException {
 		return buildDemandeRenouvellementPR();
 	}
 
@@ -167,8 +172,8 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 	}
 
 	@Override
-	public DemandeRenouvellementProspection getDemandeRenouvellementProsptection(HttpServletRequest request,
-			HttpServletResponse response) {
+	public DemandeRenouvellementProspection getDemandeRenouvellementProsptection() 
+			throws IOException, ServletException {
 		return buildDemandeRenouvellementProspection();
 	}
 

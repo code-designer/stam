@@ -39,4 +39,8 @@ public class DemandeNouvelleTitre extends DemandeNouvelle {
 	@Column(name = "attestation_regularite_fiscale")
 	@Convert(converter = PathConverter.class)
 	protected Path attestationDeRegulariteFiscale;
+	
+	@Column(name = "rapport_visite")
+	@Convert(converter = PathConverter.class)
+	protected Path rapportVisite;
 }

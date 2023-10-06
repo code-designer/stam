@@ -95,6 +95,10 @@ public abstract class Acte implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	protected Agent agent;
 	
+	@Column(name = "dossier_complementaire")
+	@Convert(converter = PathConverter.class)
+	protected Path dossierComplementaire;
+	
 	public void setDemandeNouvelle(DemandeNouvelle demande) {
 		if (this.demandeNouvelle != null && !demande.equals(this.getDemandeNouvelle()))
 			this.demandeNouvelle.setActe(null);

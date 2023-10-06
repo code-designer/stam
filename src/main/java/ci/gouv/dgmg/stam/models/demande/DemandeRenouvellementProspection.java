@@ -32,4 +32,8 @@ public class DemandeRenouvellementProspection extends DemandeRenouvellement {
 	@Convert(converter = PathConverter.class)
 	private Path programmeProspection;
 	
+	@Column(name = "rapport_visite")
+	@Convert(converter = PathConverter.class)
+	protected Path rapportVisite;
+	
 }

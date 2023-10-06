@@ -1,10 +1,13 @@
 @charset "UTF-8";
 
 :root{
-	--main-text-color: black;
-	--main-bg-color: rgb(249, 251, 251);
-	--main-container-bg-color: white;
-	--main-hover-color: skyblue;
+	--fg-black: black;
+	--bg-black: black;
+	--bg-lightgrey: rgb(249, 251, 251);
+	--fg-white: white;
+	--bg-white: white;
+	--bg-sky: skyblue;
+	--bg-grey: #c0c0c0;
 }
 *{
 	box-sizing: border-box;
@@ -12,8 +15,8 @@
 	padding:0;
 	font-family: "Segoe UI", roboto, "Helvetica Nueue", Arial, "Noto sans", sans-serif;
 	font-size: 1em;
-	background-color: var(--main-container-bg-color);
-	color: var(--main-text-color);
+	background-color: var(--bg-white);
+	color: var(--fg-black);
 }
 html,
 body{
@@ -25,12 +28,17 @@ ul{
 a{
 	text-decoration: none;
 }
+input, select{
+	border: 1px solid var(--bg-grey);
+	padding: 5px 10px;
+}
 header{
 	width: 100%;
 	margin-bottom: 20px;
 	position: sticky;
 	top: 0;
-	border-bottom: 2px solid var(--main-hover-color);
+	border-bottom: 2px solid var(--bg-sky);
+	background-color: var(--fg-white);
 }
 
 .amoiries{
@@ -43,6 +51,9 @@ header{
 }
 .logo{
 	height: 50px;
+}
+.fa-solid, .fa-thin, .fa-regular{
+	margin-right: 5px;
 }
 .menu{
 	width: 100%;
@@ -111,17 +122,23 @@ header{
 	transform-origin:0;
 }
 /*display submenu*/
-.submenu{
+.submenu, 
+.submenu-2{
 	overflow: hidden;
 	max-height: 0;
 }
-.show-submenu{
+.show-submenu, 
+.show-submenu-2{
 	overflow: visible;
 	max-height: 100%;
 	transition: max-height .5s ease-out;
 }
 .show-submenu a{
 	padding-left: 40px;
+	transition: padding-left .5s ease-out;
+}
+.show-submenu-2 a{
+	padding-left: 80px;
 	transition: padding-left .5s ease-out;
 }
 .main-frame{
@@ -170,8 +187,18 @@ header{
 	display: block;
 	width: 30px;
 	height: 30px;
-	background-color: red;
 	text-align: center;
+	border: 1px solid #c0c0c0;
+}
+.btn-add:hover{
+	background-color: var(--bg-sky);
+	color: white;
+	border: 1px solid var(--bg-sky);
+}
+.btn-del:hover{
+	background-color: red;
+	color: white;
+	border: 1px solid red;
 }
 .btn-rounded{
 	border-radius: 50%;
@@ -179,7 +206,8 @@ header{
 .table-block{
 	width:100%;
 	overflow-x:auto;
-	margin-top: 10px;
+	margin-top: 5px;
+	border: none;
 }
 table{
 	width: 100%;
@@ -203,14 +231,14 @@ th{
     hyphens: auto;
 }
 thead th{
-	background-color: var(--main-hover-color);
+	background-color: var(--bg-sky);
 	padding: 15px 0;
 }
 tbody tr:nth-child(even) td{
 	background-color: #f0ffff;
 }
 tbody tr:hover {
-	box-shadow: 0 0 3px grey;
+	box-shadow: 0 0 3px var(--bg-grey);
 	z-index: 2;
 	transform: scale(1);
 }
@@ -234,7 +262,7 @@ tbody tr:hover {
 	border: 1px solid lightgrey;
 }
 .pagination button:hover{
-	background-color: var(--main-hover-color);
+	background-color: var(--bg-sky);
 	color: white;
 }
 footer,
@@ -264,4 +292,52 @@ iframe{
 .copyrights p{
 	text-align: center;
 	padding: 20px 0 5px;
+}
+/* Form */
+.form-act {
+	display: block;
+	margin: 10px;
+}
+.form-act h2{
+	text-align: center;
+	color: var(--fg-white);
+	background-color: var(--bg-sky);
+	margin : 5px 0;
+	padding: 10px;
+	text-transform: uppercase;
+}
+.form-act h3{
+	text-align: left;
+	background-color: var(--bg-grey);
+	padding: 10px;
+	text-indent: 10px;
+	text-transform: uppercase;
+}
+.form-act div{
+	margin: 5px 0;
+}
+.form-act fieldset{
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid var(--bg-grey);
+}
+.form-act fieldset label{
+	width: 250px;
+}
+.form-act input[type=text],
+.form-act input[type=date],
+.form-act input[type=email],
+.form-act input[type=tel],
+.form-act input[type=file],
+.form-act textarea,
+.form-act select{
+	width: 100%;
+	margin-top: 5px;
+}
+.form-act input[type=checkbox],
+.form-act input[type=radio]{
+	margin-left: 15px;
+}
+.form-act .rubriques{
+	cursor: pointer;
 }
