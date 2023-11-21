@@ -14,7 +14,7 @@
 		<%@ include file="/WEB-INF/includes/perso.jsp" %>
 		<div>
 			<label for="naturepiece">Nature de la pièce</label>
-			<select id="naturepiece">
+			<select id="naturepiece" name="nature_piece">
 				<option value="CNI">CNI</option>
 				<option value="Passeport">Passeport</option>
 			</select>

@@ -3,56 +3,61 @@
 <l:layout title="Ajouter">
 	<section>
 		
-		<form action="" method="post" class="form-act">
+		<form method="post" enctype="multipart/form-data" class="form-act"
+			action="${pageContext.request.contextPath }/actes/permis-recherches/uploads">
 			<h2>Ajouter un permis de recherche</h2>			
 			
 			<div>
-				<label for="dosdmd">Dossier de demande</label>
-				<select name="dossier-demande" id="dosdmd">
+				<label for="dossier_demande">Dossier de demande</label>
+				<select name="dossier_demande" id="dossier_demande">
 					<option></option>
 				</select>
 			</div>
 			<div>
-				<label for="numoctroi">Numéro d'octroi</label>
-				<input type="text" name="numero-octroi" class="" id="numoctroi">
+				<label for="numero_ordre">Numéro d'ordre</label>
+				<input type="text" name="numero_ordre" class="" id="numero_ordre">
+			</div>
+			<div>
+				<label for="numero_octroi">Numéro d'octroi</label>
+				<input type="text" name="numero_octroi" class="" id="numero_octroi">
 			</div>
 			<div>
 				<label for="entreprise">Entreprise</label>
 				<input type="text"  name="entreprise" id="entreprise">
 			</div>
 			<div>
-				<label for="numacte">Numéro d'acte</label>
-				<input type="text" placeholder="numéro d'acte" name="numero-acte" id="numacte">
+				<label for="numero_acte">Numéro d'acte</label>
+				<input type="text" placeholder="numéro d'acte" name="numero_acte" id="numero_acte">
 			</div>
 			<div>
-				<label for="statut">Statut</label>
-				<select name="statut-acte" id="statut">
+				<label for="statut_acte">Statut</label>
+				<select name="statut_acte" id="statut_acte">
 					<option></option>
 				</select>
 			</div>
 			<div>
-				<label for="domaine">Domaine</label>
-				<input type="text" name="domaine" id="domaine">
+				<label for="superficie">Superficie (km<sup>2</sup>)</label>
+				<input type="number" name="superficie" id="superficie" step="0.01">
 			</div>
 			<div>
-				<label for="etat">Etat</label>
-				<input type="text" name="etat" id="etat">
+				<label for="region">Region</label>
+				<input type="text" name="region" id="region">
 			</div>
 			<div>
-				<label for="obs">Observations</label>
-				<textArea name="observations" id="obs"></textArea>
+				<label for="localite">Localité</label>
+				<input type="text" name="localite" id="localite"></input>
 			</div>
 			<div>
-				<label for="annee-octroi">Année d'octroi</label>
-				<input type="date" name="annee-octroi" id="annee-octroi">
+				<label for="annee_octroi">Année d'octroi</label>
+				<input type="date" name="annee_octroi" id="annee_octroi">
 			</div>			
 			<div>
-				<label for="annee-expiration">Année d'expiration</label>
-				<input type="date" name="annee-expiration" id="annee-expiration">
+				<label for="annee_expiration">Année d'expiration</label>
+				<input type="date" name="annee_expiration" id="annee_expiration">
 			</div>
 			<div>
-				<label for="acte-numerise">Télécharger le permis de recherche</label>
-				<input type="file" name="acte-numerise" id="acte-numerise">
+				<label for="acte_numerise">Télécharger le permis de recherche</label>
+				<input type="file" name="acte_numerise" id="acte_numerise">
 			</div>
 			<input type="hidden" name="doc" value="Actes">
 			<input type="hidden" name="type" value="PR">

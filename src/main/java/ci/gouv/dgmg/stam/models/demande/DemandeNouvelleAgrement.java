@@ -24,15 +24,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class DemandeNouvelleAgrement extends DemandeNouvelleAutorisation {
 	
 	@Column(name = "type_activite")
 	private String typeActivite;
 	
-	@Column(name = "numero_compte_contribuable")
-	private String numeroCompteContribuable;
+	@Convert(converter = PathConverter.class)
+	private Path memoire;
 	
 	@Column(name = "liste_autres_activites")
 	@Convert(converter = PathConverter.class)

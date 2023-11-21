@@ -37,6 +37,7 @@ public class Requerent extends Personne {
 	@Column(name="numero_piece")
 	private String numeroDePiece;
 	
+	@Column(name="piece_identite")
 	@Convert(converter = PathConverter.class)
 	private Path pieceIdentite;
 }

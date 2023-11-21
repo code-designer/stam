@@ -11,6 +11,9 @@ const lines = document.querySelectorAll('tr.row');
 const mediaQuery = window.matchMedia("(min-width:768px)");
 window.onresize =  ()=>reload(mediaQuery);
 
+//Fonction
+//backgroundSlide();
+
 //add eventListener to each menu item for manage submenu
 if(!mediaQuery.matches) {
 	const listItems = document.querySelectorAll('.menu-item');

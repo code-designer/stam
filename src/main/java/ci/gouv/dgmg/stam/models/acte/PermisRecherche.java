@@ -1,6 +1,10 @@
 package ci.gouv.dgmg.stam.models.acte;
 
+import ci.gouv.dgmg.stam.common.Substance;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,6 +19,7 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class PermisRecherche extends ActeRecherche {
+public class PermisRecherche extends Titre {
+	private int ordre;
 	
 }

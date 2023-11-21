@@ -3,12 +3,13 @@
 <l:layout title="Ajouter agrement">
 	<section>
 		
-		<form action="${pageContect.servletContext.contextPath }/actes/agrements/uploads" method="post" class="form-act">
+		<form method="post" enctype="multipart/form-data" class="form-act"
+			action="${pageContect.servletContext.contextPath }/actes/agrements/uploads" >
 			<h2>Ajouter un Agrement de sous-traitance minière</h2>
 			
 			<div>
-				<label for="dosdmd">Dossier de demande</label>
-				<select name="dossier-demande" id="dosdmd">
+				<label for="dossier_demande">Dossier de demande</label>
+				<select name="dossier_demande" id="dossier_demande">
 					<option></option>
 				</select>
 			</div>
@@ -40,7 +41,7 @@
 			</div>
 			<div>
 				<label for="obs">Observations</label>
-				<textArea type="text" name="observations" id="obs"></textArea>
+				<textArea name="observations" id="obs"></textArea>
 			</div>
 			<div>
 				<label for="annee_octroi">Année d'octroi</label>

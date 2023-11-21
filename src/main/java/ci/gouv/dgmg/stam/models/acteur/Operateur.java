@@ -26,7 +26,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode
 public class Operateur implements Serializable{
 	@Id
@@ -47,5 +46,13 @@ public class Operateur implements Serializable{
 	public void setRequerent(Requerent req) {
 		this.entite = null;
 		this.requerent = req;
+	}
+	
+	public String toString() {
+		if (requerent != null) {
+			return requerent.getNom() + " " + requerent.getPrenoms();
+		} else {
+			return entite.getRaisonSociale();
+		}
 	}
 }

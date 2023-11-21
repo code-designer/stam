@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import ci.gouv.dgmg.stam.common.PathConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode(callSuper = true)
+
 public class DemandeNouvellePE extends DemandeNouvelleTitre {
 	@Column(name = "rapport_travaux_recherche")
 	@Convert(converter = PathConverter.class)

@@ -1,7 +1,7 @@
 <header>
 	<div class="top-banniere">
 		<div class="img-frame">
-			<img class="logo" alt="logo de la dgmg" src="${pageContext.servletContext.contextPath }/images/img/dgmg.png">
+			<img class="logo" alt="logo de la dgmg" src="${pageContext.servletContext.contextPath }/images/img/logos/dgmg.png">
 		</div>
 		<input type="checkbox" class="menu-checker" id="menu-checker">
 		<label for="menu-checker" class="menu-icon">
@@ -67,7 +67,7 @@
 		</nav>
 		
 		<div class="img-frame">
-			<img class="amoiries" alt="les amoiries de la Côte d'Ivoire" src="${pageContext.servletContext.contextPath }/images/img/amoiries.png">
+			<img class="amoiries" alt="les amoiries de la Côte d'Ivoire" src="${pageContext.servletContext.contextPath }/images/img/logos/amoiries.png">
 		</div>
 		
 	</div>

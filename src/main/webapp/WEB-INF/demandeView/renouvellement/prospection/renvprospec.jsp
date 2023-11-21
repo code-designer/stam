@@ -36,15 +36,19 @@
 								<td class = "pe-col-3">RCCM 6789</td>
 								<td class = "pe-col-4">15-Mai-2023</td>
 								<td class = "pe-col-5">En traitement</td>
+								<td class = "pe-col-5">Titre</td>
 							</tr>
-							<tr class="row" data-id="DOO2">
-								<td><input type="checkbox" name="agr" class="checked-all"></td>
-								<td class = "pe-col-1">D 002</td>
-								<td class = "pe-col-2">Entreprise d'agrement authentique</td>
-								<td class = "pe-col-3">RCCM 6789</td>
-								<td class = "pe-col-4">15-Avril-2023</td>
-								<td class = "pe-col-5">En traitement</td>
-							</tr>
+							<c:forEach var = "dmd" items="${listeDemandeRenouvellementProspection}">
+								<tr class="row" data-id="${dmd.cadastreId }">
+									<td><input type="checkbox" name="agr" class="checked-all"></td>
+									<td class = "pe-col-1"><c:out value="${dmd.cadastreId }"/></td>
+									<td class = "pe-col-2"><c:out value="${dmd.demandeur }"/></td>
+									<td class = "pe-col-2"><c:out value="${dmd.numeroCompteContribuable }"/></td>
+									<td class = "pe-col-4"><c:out value="${dmd.dateSoumission }"/></td>
+									<td class = "pe-col-5"><c:out value="${dmd.statut }"/></td>
+									<td class = "pe-col-3"><c:out value="${dmd.acte.numeroOctroi }"/></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

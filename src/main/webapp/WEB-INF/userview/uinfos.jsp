@@ -1,8 +1,9 @@
 <%@ taglib tagdir="/WEB-INF/tags/" prefix="l" %>
 
 <l:layout title="Infos">
-	<h3>Ajouter un agent</h3>
-	<form method="post" action="">
+	
+	<form method="post" action="" class="form-act">
+		<h2>Informations personnelles</h2>
 		<div>
 			<label for="matricule">N° matricule</label>
 			<input type="text" name="matricule" id="matricule" maxlength="7" required>
@@ -40,7 +41,7 @@
 		</div>
 		<div>
 			<label for="mdp">Mot de passe (par defaut)</label>
-			<input type="text" name="mdp" id="mdp">
+			<input type="password" name="mdp" id="mdp">
 		</div>
 		<div>
 			<label for="photo">Photo</label>

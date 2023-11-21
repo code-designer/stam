@@ -10,7 +10,7 @@ public class AgrementDAO extends StringIndexDAO<Agrement> {
 	@Override
 	public void create(Agrement t) {
 		em.getTransaction().begin();
-		t.setAgent(em.merge(t.getAgent()));
+		//t.setAgent(em.merge(t.getAgent()));
 		em.persist(t);
 		em.getTransaction().commit();
 	}

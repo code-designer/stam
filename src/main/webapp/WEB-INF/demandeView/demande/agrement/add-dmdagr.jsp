@@ -1,7 +1,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="l" %>
 
 <l:layout title="ajouter">
-	<span>
+	<span class = "tempo-msg">
 		<c:if test="${!empty message}">
 			<c:out value="${message}"/>
 		</c:if>
@@ -17,6 +17,14 @@
 			<h3>Details de la demande</h3>
 		</div>
 		<fieldset>
+			<div>
+				<label for="cv_respo_tech">CV du responsable technique</label>
+				<input type="file" name="cv_respo_tech" id="cv_respo_tech">
+			</div>
+			<div>
+				<label for="memoire">Memoire</label>
+				<input type="file" name="memoire" id="memoire">
+			</div>
 			<div>
 				<label for="type_activite">Type d'activité</label>
 				<input type="text" name="type_activite" id="type_activite">
@@ -46,16 +54,16 @@
 				<input type="file" name="declaration_honneur" id="declaration_honneur">
 			</div>
 			<div>
-				<label for="postes">Liste des postes par categorie</label>
-				<input type="file" name="postes" id="postes">
+				<label for="liste_postes_categories">Liste des postes par categorie</label>
+				<input type="file" name="liste_postes_categories" id="liste_postes_categories">
 			</div>
 			<div>
 				<label for="liste_personnel">Liste du personnel</label>
 				<input type="file" name="liste_personnel" id="liste_personnel">
 			</div>
 		</fieldset>
-		<input type="hidden" name="doc" value="Demandes">
-		<input type="hidden" name="type" value="Agrements">
+		<input type="hidden" id="doc" name="doc" value="Demandes">
+		<input type="hidden" id="type" name="type" value="Agrements">
 		<div>
 			<input type="reset" value="Annuler">
 			<input type="submit" value="Enregistrer">

@@ -28,13 +28,13 @@ public class Detenteur extends Operateur {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "detenteur")
 	private List<Acte> actes;
 	
-	public void addDemande(Acte acte) {
+	public void addActe(Acte acte) {
 		if (actes == null)
 			actes = new ArrayList<>();
 		actes.add(acte);
 	}
 	
-	public boolean removeDemande(Acte acte) {
+	public boolean removeActe(Acte acte) {
 		if (actes == null)
 			return false;
 		return actes.remove(acte);

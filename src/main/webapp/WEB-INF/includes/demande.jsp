@@ -4,8 +4,8 @@
 
 <fieldset>
 	<div>
-		<label for="cadastreId">Numero du cadastre</label>
-		<input type="text" name="cadastreId" id="cadastreId" required>
+		<label for="cadastre_id">Numero du cadastre</label>
+		<input type="text" name="cadastre_id" id="cadastre_id" required>
 	</div>
 	<div>
 		<label for="lettre_demande">Lettre de demande</label>
@@ -26,7 +26,7 @@
 		</select>
 	</div>
 	<div>
-		<label for="datesoumission">Date de soumission</label>
-		<input type="date" name="datesoumission" id="datesoumission">
+		<label for="date_soumission">Date de soumission</label>
+		<input type="date" name="date_soumission" id="date_soumission">
 	</div>
 </fieldset>

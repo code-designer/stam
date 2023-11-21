@@ -39,7 +39,7 @@ public interface DemandeRenouvellementManager {
 	public abstract void delDemandeRenouvellementPR(DemandeRenouvellementPR ...pr);
 	public abstract void updateDemandeRenouvellementPR(DemandeRenouvellementPR pr);
 	public abstract DemandeRenouvellementPR getDemandeRenouvellementPR(String index);
-	public abstract List<DemandeRenouvellementPR> getDemandeRenouvellement(long start, int step, 
+	public abstract List<DemandeRenouvellementPR> getDemandeRenouvellementPR(long start, int step, 
 			String index) throws IOException, ServletException;
 	public abstract DemandeRenouvellementPR getDemandeRenouvellementPR() throws IOException, ServletException;
 	

@@ -43,7 +43,7 @@ public final class Credential implements Serializable{
 	
 	@Id
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "matricule_agent", referencedColumnName = "matricule")
+	@JoinColumn(name = "agent", referencedColumnName = "matricule")
 	@NonNull 
 	private Agent agent;
 	

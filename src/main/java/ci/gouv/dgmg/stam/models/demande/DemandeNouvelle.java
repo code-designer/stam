@@ -25,12 +25,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public abstract class DemandeNouvelle extends Demande {
 	@Column(name = "lettre_de_demande")
 	@Convert(converter = PathConverter.class)
 	protected Path lettreDeDemande;
+	
+	@Column(name = "numero_compte_contribuable")
+	private String numeroCompteContribuable;
 	
 	@Convert(converter = PathConverter.class)
 	protected Path rccm;

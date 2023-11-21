@@ -15,7 +15,7 @@
 	padding:0;
 	font-family: "Segoe UI", roboto, "Helvetica Nueue", Arial, "Noto sans", sans-serif;
 	font-size: 1em;
-	background-color: var(--bg-white);
+	/*background-color: var(--bg-white);*/
 	color: var(--fg-black);
 }
 html,
@@ -60,6 +60,7 @@ header{
 	height: 100%;
 	position: fixed;
 	overflow: hidden;
+	background-color: var(--bg-white);
 }
 /*.menu-item a*/
 .menu-list a{
@@ -177,6 +178,7 @@ header{
 	flex-grow: 1;
 	border-radius: 0 20px 20px 0;
 	border: none;
+	background: transparent;
 	/*padding: 0 10px;*/
 }
 .tools-list li{
@@ -252,6 +254,7 @@ tbody tr:hover {
 	height: 50px;
 	text-align: center;
 	border: none;
+	background: transparent;
 }
 .pagination label{
 	font-size: 1.2em;
@@ -340,4 +343,51 @@ iframe{
 }
 .form-act .rubriques{
 	cursor: pointer;
+}
+/******** Login *******/
+.bgcover{
+	width: 100%;
+	height: 100vh;
+	background-image: url("/stam/images/img/bgcover/mine-ouverte.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.form-login{
+	background: white;
+	border: 1px solid var(--bg-grey);
+	width: 350px;
+	min-width: 300px;
+	padding: 15px;
+	border-radius: 10px;
+}
+.form-login h2{
+	text-align:center;
+	margin: 5px auto 10px auto;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+.form-login div{
+	margin: 10px 0;
+}
+.form-login input{
+	width: 100%;
+}
+.form-login input[type=text],
+.form-login input[type=password]{
+	background-color: rgba(255,255,255,0.5);
+	margin-top: 5px;
+}
+.form-login input[type=submit]{
+	margin-top: 15px;
+}
+.glass{
+	background: linear-gradient(135deg, rgba(255,255,255,0.1),rgba(255,255,255,0));
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255,255,255,0.1);
+	box-shadow: 0 8px 32px 0 rgba(255,255,255,0.37);
+	border-radius: 20px;
 }

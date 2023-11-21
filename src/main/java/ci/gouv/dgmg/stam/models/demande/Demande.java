@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import ci.gouv.dgmg.stam.common.PathConverter;
-import ci.gouv.dgmg.stam.models.user.Agent;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -25,10 +24,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "demandes")
@@ -37,7 +36,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString
+@EqualsAndHashCode
+
 public abstract class Demande implements Serializable {
 	@Id
 	@Column(name = "cadastre_id", length = 10)
@@ -58,8 +58,8 @@ public abstract class Demande implements Serializable {
 	@Convert(converter = PathConverter.class)
 	protected Path dossierComplementaire;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	protected Agent agent;
+	//@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//protected Agent agent;
 	
 	@Enumerated(EnumType.STRING)
 	protected StatutDemande statut;
@@ -81,8 +81,11 @@ public abstract class Demande implements Serializable {
 		
 		this.demandeur = demandeur;
 		
-		if (!demandeur.getDemandes().contains(this))
+		if (demandeur.getDemandes() == null || !demandeur.getDemandes().contains(this))
 			demandeur.addDemande(this);
 	}
 	
+	public String toString() {
+		return this.cadastreId;
+	}
 }

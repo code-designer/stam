@@ -10,7 +10,7 @@ public class ProspectionDAO extends StringIndexDAO<Prospection> {
 	@Override
 	public void create(Prospection t) {
 		em.getTransaction().begin();
-		t.setAgent(em.merge(t.getAgent()));
+		//t.setAgent(em.merge(t.getAgent()));
 		em.persist(t);
 		em.getTransaction().commit();
 		

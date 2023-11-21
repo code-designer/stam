@@ -4,24 +4,31 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 
 import ci.gouv.dgmg.stam.common.PathConverter;
+import ci.gouv.dgmg.stam.common.Substance;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+
 public class DemandeNouvelleTitre extends DemandeNouvelle {
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, 
+			CascadeType.MERGE})
+	protected Substance substance;
+	
 	@Column(name = "date_cim")
 	protected LocalDate dateCIM;
 	
@@ -32,9 +39,6 @@ public class DemandeNouvelleTitre extends DemandeNouvelle {
 	@Column(name = "carte_a4")
 	@Convert(converter = PathConverter.class)
 	protected Path carteA4;
-	
-	@Column(name = "numero_compte_contribuable")
-	protected String numeroCompteContribuable;
 	
 	@Column(name = "attestation_regularite_fiscale")
 	@Convert(converter = PathConverter.class)

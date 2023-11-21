@@ -3,10 +3,14 @@ package ci.gouv.dgmg.stam.models.demande;
 import java.nio.file.Path;
 
 import ci.gouv.dgmg.stam.common.PathConverter;
+import ci.gouv.dgmg.stam.common.Substance;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,10 +25,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+
 public class DemandeNouvelleProspection extends DemandeNouvelleAutorisation {
-		
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, 
+			CascadeType.MERGE})
+	protected Substance substance;
+	
 	@Column(name = "carte_zone")
 	@Convert(converter = PathConverter.class)
 	private Path carteZone;

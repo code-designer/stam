@@ -130,7 +130,7 @@ public class DemandeRenouvellementManagerImpl extends Manager implements Demande
 	}
 
 	@Override
-	public List<DemandeRenouvellementPR> getDemandeRenouvellement(long start, int step, String index) {
+	public List<DemandeRenouvellementPR> getDemandeRenouvellementPR(long start, int step, String index) {
 		return prDAO.getAll();
 	}
 

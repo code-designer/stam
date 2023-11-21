@@ -61,6 +61,9 @@ public abstract class Manager {
 	protected final String SEPARATOR  = "\\";
 	protected Path cheminEntier;
 	
+	private final String ENTREPRISE = "entreprise";
+	private final String PERSONNE = "personne";
+	
 	private static final Logger logger = LoggerFactory.getLogger(Manager.class);
 	
 	/**
@@ -69,34 +72,53 @@ public abstract class Manager {
 	 * @throws ServletException 
 	 * @throws IOException 
 	 */
-	public Operateur buildOperateur() throws ServletException, IOException {
+	public Operateur setOperateur(Operateur operateur) throws ServletException, IOException {
 		logger.trace("Build operateur");
-		long id = Long.parseLong(request.getParameter("id") == null ? "0" : request.getParameter("id"));
-		String raisonSociale = request.getParameter("raison_sociale");
-		String gerant = request.getParameter("gerant");
-		Path statuts = getFormFilePath(ENTREPRISE_FOLDER,
-				getFilename(request.getPart("statuts")));
+		System.out.println("buildOperateur");
 		
-		Entite entite = new Entite(id, raisonSociale, gerant, statuts);
+		String typeOperateur = request.getParameter("demandeur");
+		if(typeOperateur.equals(ENTREPRISE)) {
+			long id = Long.parseLong(request.getParameter("id") == null ? "0" : request.getParameter("id"));
+			String raisonSociale = request.getParameter("raison_sociale");
+			String gerant = request.getParameter("gerant");
+			Path statuts = getFormFilePath(ENTREPRISE_FOLDER,
+					getFilename(request.getPart("statuts")));
+			
+			operateur.setEntite(new Entite(id, raisonSociale, gerant, statuts));
+		}
 		
-		Requerent requerent = new Requerent();
-		setPersonne(requerent);
-		Path casier = getFormFilePath(REQUERENT_FOLDER + requerent.getNatureDePiece(),
-				getFilename(request.getPart("casier_judiciaire")));
-		Path certificat = getFormFilePath(REQUERENT_FOLDER + requerent.getNatureDePiece(),
-				getFilename(request.getPart("certificat_residence")));
-		requerent.setCasierJudiciaire(casier);
-		requerent.setCertificatResidence(certificat);
-		
-		Operateur operateur = new Operateur();
-		
-		if(raisonSociale.isBlank())
+		if(typeOperateur.equals(PERSONNE)) {
+			Requerent requerent = new Requerent();
+			setPersonne(requerent);
+			Path casier = getFormFilePath(REQUERENT_FOLDER + requerent.getNumeroDePiece(),
+					getFilename(request.getPart("casier_judiciaire")));
+			Path certificat = getFormFilePath(REQUERENT_FOLDER + requerent.getNatureDePiece(),
+					getFilename(request.getPart("certificat_residence")));
+			String natureDePiece = request.getParameter("nature_piece");
+			String npiece = request.getParameter("npiece");
+			Path piece_identite = getFormFilePath(REQUERENT_FOLDER + requerent.getNatureDePiece(),
+					getFilename(request.getPart("piece_identite")));
+			requerent.setCasierJudiciaire(casier);
+			requerent.setCertificatResidence(certificat);
+			requerent.setNatureDePiece(natureDePiece);
+			requerent.setNumeroDePiece(npiece);
+			requerent.setPieceIdentite(piece_identite);
 			operateur.setRequerent(requerent);
-		else
-			operateur.setEntite(entite);
-		
+		}
 		
 		return operateur;
+	}
+	
+	private Demandeur buildDemandeur() throws ServletException, IOException {
+		Demandeur demandeur = new Demandeur();
+		setOperateur(demandeur);
+		return demandeur;
+	}
+	
+	private Detenteur buildDetenteur() throws ServletException, IOException {
+		Detenteur detenteur = new Detenteur();
+		setOperateur(detenteur);
+		return detenteur;
 	}
 	
 	/**
@@ -105,6 +127,8 @@ public abstract class Manager {
 	 */
 	private void setPersonne(Personne p) throws ServletException, IOException {
 		logger.trace("Populate personne");
+		System.out.println("setPersonne");
+		
 		String nom = request.getParameter("nom");
 		String prenoms = request.getParameter("prenoms");
 		Sexe sexe = Sexe.toSexe(request.getParameter("sexe"));
@@ -140,12 +164,20 @@ public abstract class Manager {
 		return agent;
 	}
 	
+	public Agent buildAuthenticatedAgent() throws ServletException, IOException {
+		if(!request.getSession().getAttribute("connexionStatus").equals("Connected"))
+			return null;
+		return (Agent)request.getSession().getAttribute("agentinfos");
+	}
+	
 	/**
 	 * Construit la classe Contact à partir de la classe HttpServletRequest
 	 * @return Contact
 	 */
 	public Contact buildContact() {
 		logger.trace("Build contact");
+		System.out.println("BuildContact");
+		
 		String telephoneMob = request.getParameter("telperso");
 		String telephonePro = request.getParameter("telpro");
 		String emailPerso = request.getParameter("emailperso");
@@ -161,10 +193,12 @@ public abstract class Manager {
 	 */
 	public Localisation buildLocalisation() {
 		logger.trace("Build Localisation");
-		long id = Long.parseLong(request.getParameter("id_loc"));
+		System.out.println("BuildLocalisation");
+		
+		long id = Long.parseLong(request.getParameter("id_loc") == null ? "0" : request.getParameter("id_loc"));
 		String quartier = request.getParameter("quartier");
-		String commune = request.getParameter("ville");
-		String ville = request.getParameter("descrition");
+		String commune = request.getParameter("commune");
+		String ville = request.getParameter("ville");
 		String description = request.getParameter("description");
 		Localisation localisation = new Localisation();
 		localisation.setId(id);
@@ -182,7 +216,7 @@ public abstract class Manager {
 	private Path getFolderPath() {
 		String type =  request.getParameter("type");
 		String doc = request.getParameter("doc");
-		return Paths.get(CHEMIN_FICHIER).resolve(type).resolve(this.SEPARATOR + doc);
+		return Paths.get(CHEMIN_FICHIER).resolve(type).resolve(doc);
 	}
 	
 	/**
@@ -194,9 +228,11 @@ public abstract class Manager {
 	 */
 	private void setActe(Acte acte) throws IOException, ServletException {
 		logger.trace("Populate Acte object");
+		System.out.println("setActe");
+		
 		String numeroOctroi = request.getParameter("numero_octroi");
-		this.cheminEntier = getFolderPath().resolve(this.SEPARATOR + numeroOctroi);
-		String numeroActe = request.getParameter("numero-acte");
+		this.cheminEntier = getFolderPath().resolve(numeroOctroi);
+		String numeroActe = request.getParameter("numero_acte");
 		StatutActe statut = StatutActe.toStatut(request.getParameter("statut_acte"));
 		LocalDate anneeOctroi = LocalDate.parse(request.getParameter("annee_octroi"));
 		LocalDate anneeExpiration = LocalDate.parse(request.getParameter("annee_expiration"));
@@ -209,8 +245,9 @@ public abstract class Manager {
 		acte.setAnneeOctroi(anneeOctroi);
 		acte.setAnneeExpiration(anneeExpiration);
 		acte.setActeNumerise(acteNumerise);
-		acte.setDetenteur((Detenteur)buildOperateur());
-	}
+		acte.setDetenteur(buildDetenteur());
+		//acte.setAgent(buildAuthenticatedAgent());	
+		}
 	
 	/**
 	 * Affecte les valeurs aux differents attributs de l'objet titre à partir d'une requete
@@ -220,7 +257,9 @@ public abstract class Manager {
 	 * @throws ServletException
 	 */
 	private void setTitre(Titre titre) throws IOException, ServletException {
-		logger.trace("Populate Titre Object");		
+		logger.trace("Populate Titre Object");
+		System.out.println("setTitre");
+		
 		setActe(titre);
 		double superfice = Double.parseDouble(request.getParameter("superficie"));
 		String localite = request.getParameter("localite");
@@ -239,6 +278,8 @@ public abstract class Manager {
 	 */
 	public Agrement buildAgrement() throws IOException, ServletException {
 		logger.trace("Build Agrement Object");
+		System.out.println("buildAgrement");
+		
 		Agrement agrement = new Agrement();
 		setActe(agrement);
 		String domaine = request.getParameter("domaine");
@@ -290,7 +331,7 @@ public abstract class Manager {
 	public Prospection buildProspection() throws IOException, ServletException {
 		logger.trace("Build Prospection Object");
 		Prospection prospec = new Prospection();
-		setTitre(prospec);
+		setActe(prospec);
 		int ordre = Integer.parseInt(request.getParameter("ordre"));
 		prospec.setOrdre(ordre);
 		return prospec;
@@ -305,9 +346,14 @@ public abstract class Manager {
 	 */
 	private void setDemande(Demande demande) throws IOException, ServletException {
 		logger.trace("Populate Demande object");
+		System.out.println("setDemande");
+		
 		String cadastreId = request.getParameter("cadastre_id");
+		this.cheminEntier =  this.getFolderPath().resolve(cadastreId);
+		
 		LocalDate dateSoumission = LocalDate.parse(request.getParameter("date_soumission"));
 		Path droit_fixe = getFormFilePath(this.cheminEntier, getFilename(request.getPart("droit_fixe")));
+		
 		Path dossier_complementaire = getFormFilePath(this.cheminEntier,getFilename(request.getPart("dossier_complementaire")));
 		StatutDemande statutDemande = StatutDemande.toStatut(request.getParameter("statut_demande"));
 		
@@ -316,7 +362,9 @@ public abstract class Manager {
 		demande.setDroitFixe(droit_fixe);
 		demande.setStatut(statutDemande);
 		demande.setDossierComplementaire(dossier_complementaire);
-		demande.setDemandeur((Demandeur)buildOperateur());;
+		demande.setDemandeur(buildDemandeur());
+		//demande.setAgent(buildAuthenticatedAgent());
+		
 	}
 	
 	/**
@@ -328,6 +376,8 @@ public abstract class Manager {
 	 */
 	private void setDemandeNouvelle(DemandeNouvelle demandeNouvelle) throws IOException, ServletException {
 		logger.trace("populate DemandeNouvelle Object");
+		System.out.println("setDemandeNouvelle");
+		
 		setDemande(demandeNouvelle);
 		Path lettre_demande = getFormFilePath(this.cheminEntier,getFilename(request.getPart("lettre_demande")));
 		Path rccm = getFormFilePath(this.cheminEntier,getFilename(request.getPart("rccm")));
@@ -343,14 +393,26 @@ public abstract class Manager {
 	 */
 	public DemandeNouvelleAgrement buildDemandeNouvelleAgrement() throws IOException, ServletException {
 		logger.trace("Build DemandeNouvelleAgrement Object");
+		System.out.println("buildDemandeNouvelleAgrement");
+		
+		DemandeNouvelleAgrement dmdNouvAgrmt = new DemandeNouvelleAgrement();
+		setDemandeNouvelle(dmdNouvAgrmt);
+		
 		String typeActivite = request.getParameter("type_activite");
+		
+		Path cvRT = getFormFilePath(this.cheminEntier,
+				getFilename(request.getPart("cv_respo_tech")));
+		
+		Path memoire = getFormFilePath(this.cheminEntier,
+				getFilename(request.getPart("memoire")));
+		
 		String numeroCC = request.getParameter("nrccm");
 		
 		Path listeAutresActivites = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("liste_autres_activites")));
 		
-		Path contratSoustraitance = getFormFilePath(this.cheminEntier,
-				getFilename(request.getPart("contract_sous_traitance")));
+		Path contratSousTraitance = getFormFilePath(this.cheminEntier,
+				getFilename(request.getPart("contrat_sous_traitance")));
 		
 		Path copieTitreMinier = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("copie_titre_minier")));
@@ -364,18 +426,16 @@ public abstract class Manager {
 		Path listePersonnel = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("liste_personnel")));
 		
-		DemandeNouvelleAgrement dmdNouvAgrmt = new DemandeNouvelleAgrement();
-		setDemandeNouvelle(dmdNouvAgrmt);
+		dmdNouvAgrmt.setCvRT(cvRT);	
+		dmdNouvAgrmt.setMemoire(memoire);
 		dmdNouvAgrmt.setTypeActivite(typeActivite);
 		dmdNouvAgrmt.setNumeroCompteContribuable(numeroCC);
 		dmdNouvAgrmt.setListeAutresActivites(listeAutresActivites);
-		dmdNouvAgrmt.setContratDeSousTraitance(contratSoustraitance);
+		dmdNouvAgrmt.setContratDeSousTraitance(contratSousTraitance);
 		dmdNouvAgrmt.setCopietitreMinier(copieTitreMinier);
 		dmdNouvAgrmt.setDeclarationSurHonneur(declarationSurHonneur);
 		dmdNouvAgrmt.setListeDesPostesParCategorie(listeDePosteCategorie);
 		dmdNouvAgrmt.setListePersonnel(listePersonnel);
-		setDemande(dmdNouvAgrmt);
-		setDemandeNouvelle(dmdNouvAgrmt);
 		return dmdNouvAgrmt;
 	}
 	
@@ -387,8 +447,13 @@ public abstract class Manager {
 	 */
 	public DemandeNouvellePE buildDemandeNouvellePE() throws IOException, ServletException {
 		logger.trace("Build DemandeNouvellePE Object");
+		System.out.println("buildDemandeNouvellePE");
+		
+		DemandeNouvellePE demandeNouvellePE = new DemandeNouvellePE();
+		setDemandeNouvelle(demandeNouvellePE);
+		
 		Path rapportTravauxRecherches = getFormFilePath(this.cheminEntier,
-				getFilename(request.getPart("rapport_travaux_recherche")));
+				getFilename(request.getPart("rapport_travaux_recherches")));
 		
 		Path rapportEtudeFaisabilite = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("rapport_etude_faisabilite")));
@@ -405,8 +470,6 @@ public abstract class Manager {
 		Path rapportVisiteTerrain = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("rapport_visite_terrain")));
 		
-		DemandeNouvellePE demandeNouvellePE = new DemandeNouvellePE();
-		setDemandeNouvelle(demandeNouvellePE);
 		demandeNouvellePE.setRapportDesTravauxDeRecherche(rapportTravauxRecherches);
 		demandeNouvellePE.setRapportEtudeFaisabilite(rapportEtudeFaisabilite);
 		demandeNouvellePE.setArreteApprobatioinEIES(arreteApprobationEIES);
@@ -425,6 +488,11 @@ public abstract class Manager {
 	 */
 	public DemandeNouvellePR buildDemandeNouvellePR() throws IOException, ServletException {
 		logger.trace("Build DemandeNouvellePR Object");
+		System.out.println("buildDemandeNouvellePR");
+		
+		DemandeNouvellePR demandeNouvellePR = new DemandeNouvellePR();
+		setDemandeNouvelle(demandeNouvellePR);
+		
 		Path cvRT = getFormFilePath(this.cheminEntier,getFilename(request.getPart("cv_respo_tech")));
 		Path programmeGeneralDesTravaux = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("prog_general_travaux")));
@@ -451,11 +519,12 @@ public abstract class Manager {
 				getFilename(request.getPart("releve_bancaire")));
 		
 		Path attestationRegulariteFiscale = getFormFilePath(this.cheminEntier,
-				getFilename(request.getPart("attestation_regularite")));
+				getFilename(request.getPart("attestation_regularite_fiscale")));
 		
-		DemandeNouvellePR demandeNouvellePR = new DemandeNouvellePR();
-		setDemandeNouvelle(demandeNouvellePR);
+		Path carteA4 = getFormFilePath(this.cheminEntier, getFilename(request.getPart("carte_A4")));
 		
+		Path carte200_000 = getFormFilePath(this.cheminEntier, getFilename(request.getPart("carte_200000")));
+				
 		demandeNouvellePR.setCvRT(cvRT);
 		demandeNouvellePR.setProgrammeGeneralDesTravauxSurQuatreAns(programmeGeneralDesTravaux);
 		demandeNouvellePR.setProgrammeDetailleDeLaPremiereAnnee(programmeDetaille);
@@ -466,6 +535,8 @@ public abstract class Manager {
 		demandeNouvellePR.setAttestationBancaire(attestationBancaire);
 		demandeNouvellePR.setReleveBancaire(releveBancaire);
 		demandeNouvellePR.setAttestationDeRegulariteFiscale(attestationRegulariteFiscale);
+		demandeNouvellePR.setCarteA4(carteA4);
+		demandeNouvellePR.setCarte200000(carte200_000);
 		return demandeNouvellePR;
 	}
 	
@@ -477,15 +548,22 @@ public abstract class Manager {
 	 */
 	public DemandeNouvelleProspection buildDemandeNouvelleProspection() throws IOException, ServletException {
 		logger.trace("Build DemandeNouvelleProspection Object");
-		Path carteZone = getFormFilePath(this.cheminEntier,getFilename(request.getPart("carte_zone")));
-		Path programmeDeProspection = getFormFilePath(this.cheminEntier,
-				getFilename(request.getPart("programme_prospection")));
+		System.out.println("buildDemandeNouvelleProspection");
 		
 		DemandeNouvelleProspection demandeNouvelleProspection = new DemandeNouvelleProspection();
 		setDemandeNouvelle(demandeNouvelleProspection);
 		
+		Path carteZone = getFormFilePath(this.cheminEntier,getFilename(request.getPart("carte_zone")));
+		Path programmeDeProspection = getFormFilePath(this.cheminEntier,
+				getFilename(request.getPart("programme_prospection")));
+		Path cvRespoTech = getFormFilePath(this.cheminEntier,getFilename(request.getPart("cv_respo_tech")));
+		Path rapportVisiteTerrain = getFormFilePath(this.cheminEntier,
+				getFilename(request.getPart("rapport_visite_terrain")));
+		
 		demandeNouvelleProspection.setCarteZone(carteZone);
 		demandeNouvelleProspection.setProgrammeDePropection(programmeDeProspection);
+		demandeNouvelleProspection.setCvRT(cvRespoTech);
+		demandeNouvelleProspection.setRapportVisite(rapportVisiteTerrain);
 		return demandeNouvelleProspection;
 	}
 	
@@ -497,6 +575,7 @@ public abstract class Manager {
 	 */
 	private void setDemandeRenouvellement(DemandeRenouvellement dr) throws IOException, ServletException {
 		logger.trace("Populate DemandeRenouvellement Object");
+		System.out.println("setDemandeRenouvellement");
 		setDemande(dr);
 		Path lettreDemandeRenouvellement = Paths.get(request.getParameter("lettre_demande"));
 		dr.setLettreDeDemandeDeRenouvellement(lettreDemandeRenouvellement);
@@ -504,13 +583,18 @@ public abstract class Manager {
 	
 	/**
 	 * Affecte les valeurs aux differents attributs de l'objet de type DemandeRenouvellementAgrement
-	 * @return
+	 * @return DemandeRenouvellementAgrement 
 	 * @throws IOException
 	 * @throws ServletException
 	 */
 	public DemandeRenouvellementAgrement buildDemandeRenouvellementAgrement() 
 			throws IOException, ServletException {
 		logger.trace("Build DemandeRenouvellementAgrement");
+		System.out.println("buildDemandeRenouvellementAgrement");
+		
+		DemandeRenouvellementAgrement dmdRenAgrmt = new DemandeRenouvellementAgrement();
+		setDemandeRenouvellement(dmdRenAgrmt);
+		
 		Path typeActivite = Paths.get(request.getParameter("type_activite"));
 		Path rapportTechFin = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("rapport_technique_financier")));
@@ -518,8 +602,6 @@ public abstract class Manager {
 		Path copieTitreMinier = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("copie_titre_minier")));
 		
-		DemandeRenouvellementAgrement dmdRenAgrmt = new DemandeRenouvellementAgrement();
-		setDemandeRenouvellement(dmdRenAgrmt);
 		dmdRenAgrmt.setTypeActivite(typeActivite);
 		dmdRenAgrmt.setRapportGeneralTechnFin(rapportTechFin);
 		dmdRenAgrmt.setCopieTitreMinier(copieTitreMinier);
@@ -534,14 +616,17 @@ public abstract class Manager {
 	 */
 	public DemandeRenouvellementPE buildDemandeRenouvellementPE() throws IOException, ServletException {
 		logger.trace("DemandeRenouvellementPE");
+		System.out.println("buildDemandeRenouvellementPE");
+		
+		DemandeRenouvellementPE dmdRenPE = new DemandeRenouvellementPE();
+		setDemandeRenouvellement(dmdRenPE);
+		
 		Path rapportFaisabilite = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("rapport_faisabilite")));
 		
 		Path planEiesActualise = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("plan_eies_actualise")));
 		
-		DemandeRenouvellementPE dmdRenPE = new DemandeRenouvellementPE();
-		setDemandeRenouvellement(dmdRenPE);
 		dmdRenPE.setPlanEIESactualise(planEiesActualise);
 		dmdRenPE.setRapportFaisabiliteTechEco(rapportFaisabilite);
 		return dmdRenPE;
@@ -553,8 +638,14 @@ public abstract class Manager {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public DemandeRenouvellementPR buildDemandeRenouvellementPR() throws IOException, ServletException {
+	public DemandeRenouvellementPR buildDemandeRenouvellementPR() 
+			throws IOException, ServletException {
 		logger.trace("DemandeRenouvellementPR");
+		System.out.println("buildDemandeRenouvellement");
+		
+		DemandeRenouvellementPR dmdRenPR = new DemandeRenouvellementPR();
+		setDemandeRenouvellement(dmdRenPR);
+		
 		Path situationCarte = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("extrait_carte")));
 		
@@ -566,9 +657,6 @@ public abstract class Manager {
 		
 		Path droitOption = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("droit_option")));
-		
-		DemandeRenouvellementPR dmdRenPR = new DemandeRenouvellementPR();
-		setDemandeRenouvellement(dmdRenPR);
 		
 		dmdRenPR.setSituationDeLaCarte(situationCarte);
 		dmdRenPR.setRapportGeneralDesTravauxDeRecherche(rapportGeneral);
@@ -587,28 +675,30 @@ public abstract class Manager {
 	public DemandeRenouvellementProspection buildDemandeRenouvellementProspection() 
 			throws IOException, ServletException {
 		logger.trace("DemandeRenouvellementProspection Object");
+		
+		DemandeRenouvellementProspection drp = new DemandeRenouvellementProspection();
+		setDemandeRenouvellement(drp);
+		
 		Path rapportActivite = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("rapport_activite_prospec")));
 		
 		Path programmeProspection = getFormFilePath(this.cheminEntier,
 				getFilename(request.getPart("programme_prospection")));
 		
-		DemandeRenouvellementProspection drp = new DemandeRenouvellementProspection();
-		setDemandeRenouvellement(drp);
 		drp.setRapportActiviteDeProspection(rapportActivite);
 		drp.setProgrammeProspection(programmeProspection);
 		return null;
 	}
 	
-	private Path getFormFilePath( Path path, String fileName) throws IOException {
+	private Path getFormFilePath( Path path, String filename) throws IOException {
 		logger.trace("resolve path");
-		return path.resolve(this.SEPARATOR + fileName);
+		return filename == null ? null : path.resolve(filename);
 	}
 	
-	private Path getFormFilePath( String path, String fileName) throws IOException {
-		logger.trace("Resolve path from string");		
+	private Path getFormFilePath( String path, String filename) throws IOException {
+		logger.trace("Resolve path from string");
 		Path folder = Paths.get(path);
-		return folder.resolve(this.SEPARATOR + fileName);
+		return getFormFilePath(folder, filename);
 	}
 	
 	public void copyFile(Part source, Path destination) throws IOException {

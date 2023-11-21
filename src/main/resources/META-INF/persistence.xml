@@ -31,11 +31,12 @@
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/stam"/>
       <property name="jakarta.persistence.jdbc.user" value="admino"/>
       <property name="jakarta.persistence.jdbc.password" value="JeOKSBGKwZ6T4LeM"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+      <!-- <property name="jakarta.persistence.schema-generation.database.action" value="update"/> -->
 	  <property name="hibernate.show_sql" value="true"/>
 	  <property name="hibernate.format_sql" value="true"/>
 	  <property name="hibernate.jdbc.time_zone" value="UTC"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
   

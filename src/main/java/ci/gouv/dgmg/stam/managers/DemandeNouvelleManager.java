@@ -26,12 +26,12 @@ public interface DemandeNouvelleManager {
 	public DemandeNouvelleAgrement getDemandeNouvelleAgrement() throws IOException, ServletException;
 	
 	//Permis d'exploitation
-	public void addPermisExploitation(DemandeNouvellePE pe);
-	public void delPermisExploitation(DemandeNouvellePE pe);
-	public void delPermisExploitation(DemandeNouvellePE ...pe);
-	public void updatePermisExploitation(DemandeNouvellePE pe);
+	public void addDemandeNouvellePE(DemandeNouvellePE pe);
+	public void delDemandeNouvellePE(DemandeNouvellePE pe);
+	public void delDemandeNouvellePE(DemandeNouvellePE ...pe);
+	public void updateDemandeNouvellePE(DemandeNouvellePE pe);
 	public DemandeNouvellePE getDemandeNouvellePE(String index);
-	public List<DemandeNouvellePE> getDemandeNouvellePEs(long start, int step, String index)
+	public List<DemandeNouvellePE> getDemandeNouvellePE(long start, int step, String index)
 			throws IOException, ServletException;
 	public DemandeNouvellePE getDemandeNouvellePE() throws IOException, ServletException;
 	
@@ -41,7 +41,7 @@ public interface DemandeNouvelleManager {
 	public void delDemandeNouvellePR(DemandeNouvellePR ...pr);
 	public void updateDemandeNouvellePR(DemandeNouvellePR pr);
 	public DemandeNouvellePR getDemandeNouvellePR(String index);
-	public List<DemandeNouvellePR> getDemandeNouvellePRs(long start, int step, String index)
+	public List<DemandeNouvellePR> getDemandeNouvellePR(long start, int step, String index)
 			throws IOException, ServletException;
 	public DemandeNouvellePR getDemandeNouvellePR() throws IOException, ServletException;
 	

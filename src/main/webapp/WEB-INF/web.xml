@@ -2,8 +2,8 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="6.0">
   <display-name>Stam</display-name>
   <welcome-file-list>
-    <welcome-file>/WEB-INF/login/index.jsp</welcome-file>
-    <welcome-file>/WEB-INF/login/index.html</welcome-file>
+    <welcome-file>/WEB-INF/home.jsp</welcome-file>
+    <welcome-file>/WEB-INF/home.html</welcome-file>
   </welcome-file-list>
   <jsp-config>
     <jsp-property-group>
@@ -14,10 +14,10 @@
   <session-config>
     <session-timeout>600</session-timeout>
   </session-config>
-  <!-- <error-page>
+  <error-page>
     <error-code>404</error-code>
     <location>/WEB-INF/errors/404.jsp</location>
-  </error-page> -->
+  </error-page>
   <error-page>
     <error-code>403</error-code>
     <location>/WEB-INF/errors/403.jsp</location>
@@ -26,34 +26,46 @@
     <error-code>500</error-code>
     <location>/WEB-INF/errors/500.jsp</location>
   </error-page>
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>file</realm-name>
+    <form-login-config>
+      <form-login-page>/WEB-INF/login/index.jsp</form-login-page>
+      <form-error-page>/WEB-INF/login/index.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <url-pattern>/css/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <url-pattern>/images/img/bgcover/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Manager</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <role-name>Manager</role-name>
+  </security-role>
   <servlet>
     <description></description>
-    <display-name>ActeServlet</display-name>
-    <servlet-name>ActeServlet</servlet-name>
-    <servlet-class>ci.gouv.dgmg.stam.servlet.actes.ActeServlet</servlet-class>
+    <display-name>RenouvellementServlet</display-name>
+    <servlet-name>RenouvellementServlet</servlet-name>
+    <servlet-class>ci.gouv.dgmg.stam.servlet.renouvellements.RenouvellementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ActeServlet</servlet-name>
-    <url-pattern>/ActeServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>MainServlet</display-name>
-    <servlet-name>MainServlet</servlet-name>
-    <servlet-class>ci.gouv.dgmg.stam.servlet.MainServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MainServlet</servlet-name>
-    <url-pattern>/MainServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DemandeServlet</display-name>
-    <servlet-name>DemandeServlet</servlet-name>
-    <servlet-class>ci.gouv.dgmg.stam.servlet.demandes.DemandeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DemandeServlet</servlet-name>
-    <url-pattern>/DemandeServlet</url-pattern>
+    <servlet-name>RenouvellementServlet</servlet-name>
+    <url-pattern>/RenouvellementServlet</url-pattern>
   </servlet-mapping>
 </web-app>

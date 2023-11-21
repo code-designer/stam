@@ -1,29 +1,17 @@
 package ci.gouv.dgmg.stam.entry;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import org.instancio.Instancio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ci.gouv.dgmg.stam.dao.DAOFactory;
-import ci.gouv.dgmg.stam.dao.DAOFactory.DAOType;
-import ci.gouv.dgmg.stam.dao.demande.DemandeNouvelleProspectionDAO;
-import ci.gouv.dgmg.stam.dao.user.UserDAOImpl;
-import ci.gouv.dgmg.stam.models.demande.Demande;
-import ci.gouv.dgmg.stam.models.demande.DemandeNouvelleProspection;
-import ci.gouv.dgmg.stam.models.user.Agent;
-import ci.gouv.dgmg.stam.models.user.Contact;
-import ci.gouv.dgmg.stam.models.user.Credential;
-import ci.gouv.dgmg.stam.models.user.Localisation;
-import ci.gouv.dgmg.stam.models.user.Sexe;
-import ci.gouv.dgmg.stam.models.user.UserRole;
 
 public class App {
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 	public static void main(String[] args) {
 		LOGGER.info(null);
+		
+		/*
 		Credential credential = new Credential();
 		credential.setPassword("Ydf4gUH65S43efix");
 		credential.addRole(UserRole.Manager);
@@ -82,22 +70,25 @@ public class App {
 		agent1.setLocalisation(localisation1);
 		
 		UserDAOImpl um = new UserDAOImpl();
-		//um.create(agent1);
+		um.create(agent1);
 		
 		List<Agent> agents = um.getAll();
 		
-		System.out.println(agents);
 		
-		Demande demande = Instancio.create(DemandeNouvelleProspection.class);
-		
-		demande.setAgent(agents.get(0));
-		demande.getDemandeur().setId(0);
-		demande.getDemandeur().getEntite().setId(0);
-		demande.getDemandeur().getRequerent().setId(0);
-		System.out.println(demande);
+		  System.out.println(agents);
+		  
+		  Demande demande = Instancio.create(DemandeNouvelleProspection.class);
+		  
+		  //demande.setAgent(agents.get(0)); 
+		  demande.getDemandeur().setId(0);
+		  demande.getDemandeur().getEntite().setId(0);
+		  demande.getDemandeur().getRequerent().setId(0); System.out.println(demande);
+		 
 		
 		DemandeNouvelleProspectionDAO dd = (DemandeNouvelleProspectionDAO)DAOFactory.getDemandeDAO(DAOType.DEMANDE_NOUVELLE_PROSPECTION);
 		//dd.create((DemandeNouvelleProspection)demande);
+		 * */
+		
 	}
 
 }

@@ -41,5 +41,23 @@
 		 ids.push(parent.getAttribute('data-id'));
 		 parent.remove();
 	 });
-	 console.log(ids);
+	 //console.log(ids);
+ }
+ /**
+  * Background slide
+  */
+ export function backgroundSlide(){
+	 let imageFolder = "./images/img/bgcover/"
+	 let imageNames = ["mine-ouverte.jpg","tomberau.jps","carrieres.jpg"];
+	 const div = document.querySelector('#bgcolor');
+	 let index = 0;
+	 
+	 setInterval(
+		 function(){
+			 div.style.backgroundImage = url(imageFolder + imageNames[index]);
+			 index++;
+			 console.log(index)
+		 },
+		 10000
+	 )
  }

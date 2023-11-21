@@ -75,7 +75,7 @@ public abstract class Acte implements Serializable {
 	protected Path acteNumerise;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinColumn(name = "acte_id", referencedColumnName = "cadastre_id")
+	@JoinColumn(name = "dmd_id", referencedColumnName = "cadastre_id")
 	@NonNull
 	protected DemandeNouvelle demandeNouvelle;
 	
@@ -92,8 +92,8 @@ public abstract class Acte implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "acte")
 	protected List<DemandeRenouvellement> renouvellements;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	protected Agent agent;
+	//@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	//protected Agent agent;
 	
 	@Column(name = "dossier_complementaire")
 	@Convert(converter = PathConverter.class)
@@ -117,5 +117,16 @@ public abstract class Acte implements Serializable {
 	
 	public boolean removeRenouvellement(DemandeRenouvellement renouvellement) {
 		return renouvellements != null ? renouvellements.remove(renouvellement) : false;
+	}
+	
+	public void setDetenteur(Detenteur detenteur) {
+		if(this.detenteur != null && this.detenteur.equals(detenteur)) {
+			this.detenteur.getActes().remove(this);
+		}
+		this.detenteur = detenteur;
+		
+		if(detenteur.getActes() == null || !detenteur.getActes().contains(this)) {
+			detenteur.addActe(this);
+		}
 	}
 }

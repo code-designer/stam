@@ -15,6 +15,6 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Prospection extends ActeRecherche {
-	
+public class Prospection extends Acte {
+	private int ordre;
 }

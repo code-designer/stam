@@ -10,8 +10,12 @@ public class DemandeNouvelleAgrementDAO extends StringIndexDAO<DemandeNouvelleAg
 	@Override
 	public void create(DemandeNouvelleAgrement t) {
 		em.getTransaction().begin();
-		t.setAgent(em.merge(t.getAgent()));
+		//t.setAgent(em.merge(t.getAgent()));
+		if(t.getDemandeur().getId() != 0)
+			t.setDemandeur(em.merge(t.getDemandeur()));
+		
 		em.persist(t);
+		
 		em.getTransaction().commit();
 	}
 
@@ -38,7 +42,7 @@ public class DemandeNouvelleAgrementDAO extends StringIndexDAO<DemandeNouvelleAg
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DemandeNouvelleAgrement> getAll() {
-		return em.createQuery("form DemandeNouvelleAgrement").getResultList();
+		return em.createQuery("from DemandeNouvelleAgrement").getResultList();
 	}
 
 }

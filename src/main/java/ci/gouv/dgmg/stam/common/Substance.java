@@ -2,6 +2,7 @@ package ci.gouv.dgmg.stam.common;
 
 import java.io.Serializable;
 
+import ci.gouv.dgmg.stam.models.acte.Titre;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,4 +29,5 @@ public class Substance implements Serializable{
 	@Column(nullable = false)
 	@NonNull
 	private String substance;
+	
 }

@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
  * Servlet implementation class UserServlet
  */
 @WebServlet(
-	urlPatterns = {"/user/profile",	"/user/settings","/user/password", "/users"}
+	urlPatterns = {"/user/profile","/user/settings","/user/password", "/user/logout", "/users"}
 		)
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,12 +32,18 @@ public class UserServlet extends HttpServlet {
 			return;	
 		} 
 		String uri = request.getRequestURI().toString();
+		
 		if(uri.endsWith("/stam/users"))
-			this.dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/userView/uinfos.jsp");
+			this.dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/userview/users.jsp");
 		
 		if(uri.endsWith("/stam/user/profile"))
-			this.dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/userView/uinfos.jsp");
+			this.dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/userview/uinfos.jsp");
 		
+		if(uri.endsWith("/stam/user/logout")) {
+			session.invalidate();
+			response.sendRedirect(this.getServletContext().getContextPath() + "/");
+			return;
+		}
 		this.dispatcher.forward(request, response);
 		
 	}

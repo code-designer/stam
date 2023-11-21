@@ -2,7 +2,8 @@
 
 <l:layout title="ajouter">
 	
-	<form method="post" action="" class="form-act">
+	<form method="post" enctype="multipart/form-data" class="form-act"
+		action="${pageContext.request.contextPath }/demandes/recherches/uploads">
 		<h2>Ajouter une demande de PR</h2>
 		
 		<%@ include file="/WEB-INF/includes/requerent.jsp" %>
@@ -11,6 +12,12 @@
 			<h3>Details de la demande</h3>
 		</div>
 		<fieldset>
+			<div>
+				<label for="sustance">Substance</label>
+				<select id="substance" name="substance">
+					<option value="1">OR</option>
+				</select>
+			</div>
 			<div>
 				<label for="nrccm">Numéro de compte contribuable</label>
 				<input type="text" name="nrccm" id="nrccm">
@@ -28,16 +35,16 @@
 				<input type="file" name="releve_bancaire" id="releve_bancaire">
 			</div>
 			<div>
-				<label for="attestation_regularite">Attestation de regularité fiscale</label>
-				<input type="file" name="attestation_regularite" id="attestation_regularite">
+				<label for="attestation_regularite_fiscale">Attestation de regularité fiscale</label>
+				<input type="file" name="attestation_regularite_fiscale" id="attestation_regularite_fiscale">
 			</div>
 			<div>
-				<label for="carte200000">Carte de situation 1/200 000</label>
-				<input type="file" name="carte200000" id="carte200000">
+				<label for="carte_200000">Carte de situation 1/200 000</label>
+				<input type="file" name="carte_200000" id="carte_200000">
 			</div>
 			<div>
-				<label for="carteA4">Extrait de la carte au format A4</label>
-				<input type="file" name="carteA4" id="carteA4">
+				<label for="carte_A4">Extrait de la carte au format A4</label>
+				<input type="file" name="carte_A4" id="carte_A4">
 			</div>
 			<div>
 				<label for="prog_general_travaux">Programme général des travaux sur les quatres années</label>
@@ -68,8 +75,8 @@
 				<input type="file" name="experience_demandeur" id="experience_demandeur">
 			</div>
 			<div>
-				<label for="rapport_visite">Rapport de visite de terrain</label>
-				<input type="file" name="rapport_visite" id="rapport_visite">
+				<label for="rapport_visite_terrain">Rapport de visite de terrain</label>
+				<input type="file" name="rapport_visite_terrain" id="rapport_visite_terrain">
 			</div>
 		</fieldset>
 		<input type="hidden" name="doc" value="Demandes">

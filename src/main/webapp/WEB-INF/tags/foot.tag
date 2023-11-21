@@ -19,6 +19,6 @@
 		</div>
 	</div>
 	<div class="copyrights">
-		<p>&copy;2023 - Service Informatique de la DGMG</p>
+		<p>&copy;2023 - Pool Informatique de la DGMG</p>
 	</div>
 </footer>

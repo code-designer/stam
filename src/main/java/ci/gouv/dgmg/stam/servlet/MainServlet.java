@@ -1,11 +1,13 @@
 package ci.gouv.dgmg.stam.servlet;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 
 /**
  * Servlet implementation class MainServlet
  */
+
 public abstract class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected RequestDispatcher dispatcher;

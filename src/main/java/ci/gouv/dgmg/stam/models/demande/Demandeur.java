@@ -22,7 +22,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Demandeur extends Operateur{
 		

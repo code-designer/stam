@@ -2,9 +2,9 @@ package ci.gouv.dgmg.stam.models.acte;
 
 import ci.gouv.dgmg.stam.common.Substance;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@MappedSuperclass
+//@MappedSuperclass
+@Entity(name = "titres")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -25,6 +26,8 @@ public abstract class Titre extends Acte {
 	protected String region;
 	protected String localite;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, 
+			CascadeType.MERGE})
 	protected Substance substance;
 }

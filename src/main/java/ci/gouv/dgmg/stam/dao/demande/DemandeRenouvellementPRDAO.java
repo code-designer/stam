@@ -11,7 +11,7 @@ public class DemandeRenouvellementPRDAO
 	@Override
 	public void create(DemandeRenouvellementPR t) {
 		em.getTransaction().begin();
-		t.setAgent(em.merge(t.getAgent()));
+		//t.setAgent(em.merge(t.getAgent()));
 		em.persist(t);
 		em.getTransaction().commit();
 	}

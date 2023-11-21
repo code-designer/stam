@@ -16,8 +16,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+
 public abstract class DemandeNouvelleAutorisation extends DemandeNouvelle {
 	@Column(name = "cv_rt")
 	@Convert(converter = PathConverter.class)
